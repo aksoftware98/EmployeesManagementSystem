@@ -1,0 +1,21 @@
+﻿@inherits DisplayEmployeeBase
+
+<div class="card m-3" style="min-width: 18rem; max-width:30.5%;">
+    <div class="card-header">
+        <h3>
+            @Employee.FirstName @Employee.LastName
+        </h3>
+    </div>
+    <img class="card-img-top imageThumbnail" src="@Employee.PhotoPath" />
+    @if (ShowFooter)
+    {
+        <div class="card-footer text-center">
+            <a href="@($"/employeedetails/{Employee.EmployeeId}")" class="btn btn-primary m-1">Zobacz</a>
+            <a href="@($"/editemployee/{Employee.EmployeeId}")" class="btn btn-primary m-1">Edytuj</a>
+            <button class="btn btn-danger" type="button" @onclick="Delete_Click">Usuń</button>
+        </div>
+    }
+</div>
+
+<Confirm ConfirmationChanged="ConfirmDelete_Click" @ref="DeleteConfirmation"
+         ConfirmationMessage=@($"Czy na pewno chcesz usunąć pracownika \"{Employee.LastName}, {Employee.FirstName}\"?")></Confirm>

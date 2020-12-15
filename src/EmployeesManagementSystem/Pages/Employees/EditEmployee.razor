@@ -1,0 +1,96 @@
+﻿@page "/editemployee/{id}"
+@page "/editemployee"
+
+@inherits EditEmployeeBase
+@using Microsoft.AspNetCore.Components.Forms
+ 
+
+<EditForm Model="@EditEmployeeModel" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <h3>@PageHeaderText</h3>
+    <hr />
+    <ValidationSummary />
+    <div class="form-group row">
+        <label for="firstName" class="col-sm-2 col-form-label">
+            Imię
+        </label>
+        <div class="col-sm-10">
+            <InputText id="firstName" class="form-control" placeholder="Imię"
+                       @bind-Value="EditEmployeeModel.FirstName" />
+            <ValidationMessage For="@(() => EditEmployeeModel.FirstName)" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="lastName" class="col-sm-2 col-form-label">
+            Nazwisko
+        </label>
+        <div class="col-sm-10">
+            <InputText id="lastName" class="form-control" placeholder="Nazwisko"
+                       @bind-Value="EditEmployeeModel.LastName" />
+            <ValidationMessage For="@(() => EditEmployeeModel.LastName)" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="email" class="col-sm-2 col-form-label">
+            Email
+        </label>
+        <div class="col-sm-10">
+            <InputText id="email" class="form-control" placeholder="Email"
+                       @bind-Value="EditEmployeeModel.Email" />
+            <ValidationMessage For="@(() => EditEmployeeModel.Email)" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="confirmEmail" class="col-sm-2 col-form-label">
+            Powtórz Email
+        </label>
+        <div class="col-sm-10">
+            <InputText id="confirmEmail" class="form-control"
+                       @bind-Value="EditEmployeeModel.ConfirmEmail" />
+            <ValidationMessage For="@(() => EditEmployeeModel.ConfirmEmail)" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="department" class="col-sm-2 col-form-label">
+            Dział
+        </label>
+        <div class="col-sm-10">
+            <CustomInputSelect @bind-Value="@EditEmployeeModel.DepartmentId" class="form-control">
+                @foreach (var dept in Departments)
+                {
+                    <option value="@dept.DepartmentId">@dept.DepartmentName</option>
+                }
+            </CustomInputSelect>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="gender" class="col-sm-2 col-form-label">
+            Płeć
+        </label>
+        <div class="col-sm-10">
+            <InputSelect @bind-Value="EditEmployeeModel.Gender" class="form-control">
+                @foreach (var gender in Enum.GetValues(typeof(Gender)))
+                {
+                    <option value="@gender">@gender</option>
+                }
+            </InputSelect>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="dateOfBirth" class="col-sm-2 col-form-label">
+            Data urodzenia
+        </label>
+        <div class="col-sm-10">
+            <InputDate @bind-Value="EditEmployeeModel.DateOfBirth" class="form-control" />
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Zapisz</button>
+
+    @if (EditEmployeeModel.EmployeeId > 0)
+    {
+        <button class="btn btn-danger" type="button" @onclick="Delete_Click">Usuń</button>
+
+    }
+</EditForm>
+<Confirm @ref="DeleteConfirmation" ConfirmationChanged="ConfirmDelete_Click"
+         ConfirmationMessage=@($"Czy na pewno chcesz usunąć pracownika \"{EditEmployeeModel.LastName}, {EditEmployeeModel.FirstName}\"?")></Confirm>

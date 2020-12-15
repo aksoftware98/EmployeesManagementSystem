@@ -1,0 +1,40 @@
+﻿@page "/employeedetails/{id:int}"
+@page "/employeedetails/"
+@inherits EmployeeDetailsBase
+
+@if (Employee == null)
+{
+    <div class="spinner"></div>
+}
+else
+{
+
+    <div class="row justify-content-center m-3">
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-header">
+                    <h1>@Employee.FirstName @Employee.LastName</h1>
+                </div>
+            </div>
+            <div class="card-body text-center">
+                <img class="card-img-top" src="@Employee.PhotoPath" />
+                <h4>ID pracownika: @Employee.EmployeeId</h4>
+                <h4>Email : @Employee.Email</h4>
+                <h4>Dział : @(Employee.Department == null ? "N/A" : Employee.Department.DepartmentName)</h4>
+            </div>
+            <div class="card-footer text-center">
+                <a href="/" class="btn btn-primary m-1">Wstecz</a>
+                <a href="@($"/editemployee/{Employee.EmployeeId}")" class="btn btn-primary m-1">Edytuj</a>
+                <a href="#" class="btn btn-danger m-1">Usuń</a>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Potwierdź godziny</h3>
+                </div>
+            </div>
+                    @*<SfCalendar TValue="DateTime?"></SfCalendar>*@
+                    
+
+            </div>
+        </div>
+}
