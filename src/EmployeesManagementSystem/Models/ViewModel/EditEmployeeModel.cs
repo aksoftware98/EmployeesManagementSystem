@@ -28,5 +28,8 @@ namespace EmployeesManagementSystem.Models
         public string PhotoPath { get; set; }
         //[ValidateComplexType]
         public Department Department { get; set; } = new Department();
+
+        public string Password { get; set; }
+        public string ConfirmPassword { get; set; }
     }
 }

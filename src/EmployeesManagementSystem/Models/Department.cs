@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace EmployeesManagementSystem.Models
@@ -8,5 +9,7 @@ namespace EmployeesManagementSystem.Models
         public int DepartmentId { get; set; }
         [Required]
         public string DepartmentName { get; set; }
+
+        public virtual List<Employee> Employees { get; set; }
     }
 }

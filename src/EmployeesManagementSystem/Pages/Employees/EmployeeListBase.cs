@@ -9,6 +9,7 @@ namespace EmployeesManagementSystem.Pages
 {
     public class EmployeeListBase : ComponentBase
     {
+
         [Inject]
         public ApplicationDbContext Db { get; set; }
         public bool ShowFooter { get; set; } = true;
@@ -16,11 +17,11 @@ namespace EmployeesManagementSystem.Pages
 
         protected override void OnInitialized()
         {
-            Employees = Db.Employees.ToList();
+            Employees = Db.Users.ToList();
         }
         protected void EmployeeDeleted()
         {
-            Employees = Db.Employees.ToList();
+            Employees = Db.Users.ToList();
         }
         
     }

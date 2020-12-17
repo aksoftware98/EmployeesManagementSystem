@@ -1,4 +1,4 @@
-﻿@page "/employeedetails/{id:int}"
+﻿@page "/employeedetails/{id}"
 @page "/employeedetails/"
 @inherits EmployeeDetailsBase
 
@@ -18,13 +18,13 @@ else
             </div>
             <div class="card-body text-center">
                 <img class="card-img-top" src="@Employee.PhotoPath" />
-                <h4>ID pracownika: @Employee.EmployeeId</h4>
+                <h4>ID pracownika: @Employee.Id</h4>
                 <h4>Email : @Employee.Email</h4>
                 <h4>Dział : @(Employee.Department == null ? "N/A" : Employee.Department.DepartmentName)</h4>
             </div>
             <div class="card-footer text-center">
                 <a href="/" class="btn btn-primary m-1">Back</a>
-                <a href="@($"/editemployee/{Employee.EmployeeId}")" class="btn btn-primary m-1">Edit</a>
+                <a href="@($"/editemployee/{Employee.Id}")" class="btn btn-primary m-1">Edit</a>
                 <button class="btn btn-danger" type="button" @onclick="Delete_Click">Delete</button>
             </div>
             <div class="card">

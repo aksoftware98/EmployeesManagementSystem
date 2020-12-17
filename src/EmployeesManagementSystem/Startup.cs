@@ -2,6 +2,7 @@ using AutoMapper;
 using EmployeesManagementSystem.Areas.Identity;
 using EmployeesManagementSystem.Data;
 using EmployeesManagementSystem.Models;
+using EmployeesManagementSystem.Models.DataSeeding;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,18 +38,20 @@ namespace EmployeesManagementSystem
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
+            services.AddDefaultIdentity<Employee>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
             services.AddAutoMapper(typeof(EmployeeProfile));
             services.AddServerSideBlazor();
-            services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
+            services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<Employee>>();
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddSingleton<WeatherForecastService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<Employee> userManager,
+                      RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -61,6 +65,9 @@ namespace EmployeesManagementSystem
                 app.UseHsts();
             }
 
+            var dataSeeding = new UsersSeeding(userManager, roleManager);
+            dataSeeding.SeedData().Wait();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -71,10 +78,11 @@ namespace EmployeesManagementSystem
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapDefaultControllerRoute();
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
         }
     }
+
 }

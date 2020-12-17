@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace EmployeesManagementSystem.Pages
 {
@@ -19,6 +20,8 @@ namespace EmployeesManagementSystem.Pages
 
         [Inject]
         public ApplicationDbContext Db { get; set; }
+
+        [Inject] public UserManager<Employee> UserManager { get; set; }
 
         public string PageHeaderText { get; set; }
 
@@ -32,13 +35,15 @@ namespace EmployeesManagementSystem.Pages
         [Parameter]
         public string Id { get; set; }
 
+        private bool IsAdd => string.IsNullOrWhiteSpace(Id);
+
         [Inject]
         public IMapper Mapper { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
-        protected override void OnInitialized()
+        protected async override Task OnInitializedAsync()
         {
             //var authenticationState = await AuthenticationStateTask;
             //if (!authenticationState.User.Identity.IsAuthenticated)
@@ -47,11 +52,10 @@ namespace EmployeesManagementSystem.Pages
             //    NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
             //}
 
-            int.TryParse(Id, out int employeeId);
-            if (employeeId != 0)
+            if (!string.IsNullOrWhiteSpace(Id))
             {
                 PageHeaderText = "Edytuj pracownika";
-                Employee = Db.Employees.Find(Convert.ToInt32(Id));
+                Employee = await UserManager.FindByIdAsync(Id);
             }
             else
             {
@@ -64,7 +68,6 @@ namespace EmployeesManagementSystem.Pages
                 };
             }
 
-
             Departments = Db.Departments.ToList();
             Mapper.Map(Employee, EditEmployeeModel);
         }
@@ -74,16 +77,16 @@ namespace EmployeesManagementSystem.Pages
             Mapper.Map(EditEmployeeModel, Employee);
 
             //Employee result = null;
-
-            Mapper.Map(EditEmployeeModel, Employee);
-            if (Employee.EmployeeId != 0)
+            if (!IsAdd)
             {
                 await Db.SaveChangesAsync();
             }
             else
             {
-                Db.Employees.Add(Employee);
-                await Db.SaveChangesAsync();
+                //Employee.Id = null;
+                Employee.PasswordHash = null;
+                Employee.UserName = Employee.Email;
+                var result = await UserManager.CreateAsync(Employee, EditEmployeeModel.Password); 
             }
 
             NavigationManager.NavigateTo("employeelist");
@@ -99,7 +102,7 @@ namespace EmployeesManagementSystem.Pages
         {
             if (deleteConfirmed)
             {
-                Db.Employees.Remove(Employee);
+                Db.Users.Remove(Employee);
                 await Db.SaveChangesAsync();
                 NavigationManager.NavigateTo("employeelist");
             }

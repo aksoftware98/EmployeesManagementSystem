@@ -14,13 +14,13 @@ namespace EmployeesManagementSystem.Pages
     {
         public Employee Employee { get; set; } = new Employee();
         [Parameter]
-        public EventCallback<int> OnEmployeeDeleted { get; set; }
+        public EventCallback<string> OnEmployeeDeleted { get; set; }
         [Inject]
         public NavigationManager NavigationManager { get; set; }
         [Inject]
         public ApplicationDbContext Db { get; set; }
         [Parameter]
-        public int Id { get; set; }
+        public string Id { get; set; }
         protected External.Components.ConfirmBase DeleteConfirmation { get; set; }
         protected void Delete_Click()
         {
@@ -31,15 +31,15 @@ namespace EmployeesManagementSystem.Pages
         {
             if (deleteConfirmed)
             {
-                Db.Employees.Remove(Employee);
+                Db.Users.Remove(Employee);
                 await Db.SaveChangesAsync();
-                await OnEmployeeDeleted.InvokeAsync(Employee.EmployeeId);
+                await OnEmployeeDeleted.InvokeAsync(Employee.Id);
             }
         }
 
         protected override void OnInitialized()
         {
-            Employee = Db.Employees.Find(Id);
+            Employee = Db.Users.Find(Id);
         }
 
     }

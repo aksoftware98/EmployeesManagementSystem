@@ -10,8 +10,8 @@
     @if (ShowFooter)
     {
         <div class="card-footer text-center">
-            <a href="@($"/employeedetails/{Employee.EmployeeId}")" class="btn btn-primary m-1">Display</a>
-            <a href="@($"/editemployee/{Employee.EmployeeId}")" class="btn btn-primary m-1">Edit</a>
+            <a href="@($"/employeedetails/{Employee.Id}")" class="btn btn-primary m-1">Display</a>
+            <a href="@($"/editemployee/{Employee.Id}")" class="btn btn-primary m-1">Edit</a>
             <button class="btn btn-danger" type="button" @onclick="Delete_Click">Delete</button>
         </div>
     }

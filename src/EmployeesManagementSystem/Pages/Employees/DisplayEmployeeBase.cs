@@ -19,7 +19,7 @@ namespace EmployeesManagementSystem.Pages
         [Parameter]
         public EventCallback<bool> OnEmployeeSelection { get; set; }
         [Parameter]
-        public EventCallback<int> OnEmployeeDeleted { get; set; }
+        public EventCallback<string> OnEmployeeDeleted { get; set; }
         [Inject]
         public ApplicationDbContext Db { get; set; }
 
@@ -36,9 +36,9 @@ namespace EmployeesManagementSystem.Pages
         {
             if (deleteConfirmed)
             {
-                Db.Employees.Remove(Employee);
+                Db.Users.Remove(Employee);
                 await Db.SaveChangesAsync(); 
-                await OnEmployeeDeleted.InvokeAsync(Employee.EmployeeId);
+                await OnEmployeeDeleted.InvokeAsync(Employee.Id);
             }
         }
 

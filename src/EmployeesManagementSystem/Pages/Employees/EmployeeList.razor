@@ -14,7 +14,6 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>Id pracownika</th>
                 <th>Imię</th>
                 <th>Nazwisko</th>
                 <th>Email</th>
@@ -28,15 +27,14 @@ else
 
             <tbody>
                 <tr>
-                    <td>@employee.EmployeeId</td>
                     <td>@employee.FirstName</td>
                     <td>@employee.LastName</td>
                     <td>@employee.Email</td>
                     <td>@employee.Gender</td>
                     <td>@employee.DateOfBirth.ToShortDateString()</td>
 
-                    <td><a href="@($"/employeedetails/{employee.EmployeeId}")" class="btn btn-primary m-1">Zobacz</a></td>
-                    <td><a href="@($"/editemployee/{employee.EmployeeId}")" class="btn btn-primary m-1">Edytuj</a></td>
+                    <td><a href="@($"/employeedetails/{employee.Id}")" class="btn btn-primary m-1">Zobacz</a></td>
+                    <td><a href="@($"/editemployee/{employee.Id}")" class="btn btn-primary m-1">Edytuj</a></td>
                 </tr>
             </tbody>
     }

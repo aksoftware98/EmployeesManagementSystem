@@ -1,7 +1,9 @@
 ﻿@page
 @using Microsoft.AspNetCore.Identity
+@using EmployeesManagementSystem.Models
+
 @attribute [IgnoreAntiforgeryToken]
-@inject SignInManager<IdentityUser> SignInManager
+@inject SignInManager<Employee> SignInManager
 @functions {
     public async Task<IActionResult> OnPost()
     {
