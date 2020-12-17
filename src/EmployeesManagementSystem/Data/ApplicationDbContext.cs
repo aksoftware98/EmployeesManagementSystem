@@ -35,9 +35,9 @@ namespace EmployeesManagementSystem.Data
             modelBuilder.Entity<Employee>().HasData(new Employee
             {
                 EmployeeId = 1,
-                FirstName = "Dżon",
-                LastName = "Trawolta",
-                Email = "dzon@trawolta.com",
+                FirstName = "John",
+                LastName = "Travolta",
+                Email = "john@gmail.com",
                 DateOfBirth = new DateTime(1980, 10, 5),
                 Gender = Gender.Mężczyzna,
                 DepartmentId = 1,
@@ -68,8 +68,8 @@ namespace EmployeesManagementSystem.Data
             modelBuilder.Entity<Employee>().HasData(new Employee
             {
                 EmployeeId = 4,
-                FirstName = "Ael",
-                LastName = "Czikita",
+                FirstName = "Concita",
+                LastName = "Wurst",
                 Email = "cos@fajnego.com",
                 DateOfBirth = new DateTime(2010, 1, 1),
                 Gender = Gender.Kobieta,
