@@ -16,41 +16,37 @@
                 </li>
                 <li class="nav-item px-3">
                     <NavLink class="nav-link" href="employeelist" Match="NavLinkMatch.All">
-                        <span class="oi oi-list" aria-hidden="true"></span> Lista pracowników
+                        <span class="oi oi-list" aria-hidden="true"></span> Employee - list
                     </NavLink>
                 </li>
                 <li class="nav-item px-3">
                     <NavLink class="nav-link" href="detailedlist" Match="NavLinkMatch.All">
-                        <span class="oi oi-list" aria-hidden="true"></span> Pracownicy - kafelki
+                        <span class="oi oi-list" aria-hidden="true"></span> Employee - tiles
                     </NavLink>
                 </li>
 
                 <li class="nav-item px-3">
                     <NavLink class="nav-link" href="/editemployee" Match="NavLinkMatch.All" @onclick="HandleClick">
-                        <span class="oi oi-file" aria-hidden="true"></span> Nowy
+                        <span class="oi oi-file" aria-hidden="true"></span> Employee - new
                     </NavLink>
                 </li>
-                <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="/editemployee/1" Match="NavLinkMatch.All">
-                        <span class="oi oi-pencil" aria-hidden="true"></span> Edytuj
-                    </NavLink>
-                </li>
+
                 <li class="nav-item px-3">
                     <NavLink class="nav-link" href="/schedule" Match="NavLinkMatch.All">
-                        <span class="oi oi-tablet" aria-hidden="true"></span> Grafik
+                        <span class="oi oi-tablet" aria-hidden="true"></span> Schedule
                     </NavLink>
                 </li>
-                }
+                
                 <li class="nav-item px-3">
                     <NavLink class="nav-link" href="/identity/account/logout" Match="NavLinkMatch.All">
-                        <span class="oi oi-power-standby" aria-hidden="true"></span> Wyloguj
+                        <span class="oi oi-power-standby" aria-hidden="true"></span> Logout
                     </NavLink>
                 </li>
             </Authorized>
             <NotAuthorized>
                 <li class="nav-item px-3">
                     <NavLink class="nav-link" href="/identity/account/login" Match="NavLinkMatch.All">
-                        <span class="oi oi-lock-locked" aria-hidden="true"></span> Zaloguj
+                        <span class="oi oi-lock-locked" aria-hidden="true"></span> Login
                     </NavLink>
                 </li>
             </NotAuthorized>

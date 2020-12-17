@@ -86,7 +86,7 @@ namespace EmployeesManagementSystem.Pages
                 await Db.SaveChangesAsync();
             }
 
-            NavigationManager.NavigateTo("/");
+            NavigationManager.NavigateTo("employeelist");
 
         }
         protected External.Components.ConfirmBase DeleteConfirmation { get; set; }
@@ -101,7 +101,7 @@ namespace EmployeesManagementSystem.Pages
             {
                 Db.Employees.Remove(Employee);
                 await Db.SaveChangesAsync();
-                NavigationManager.NavigateTo("/");
+                NavigationManager.NavigateTo("employeelist");
             }
         }
 

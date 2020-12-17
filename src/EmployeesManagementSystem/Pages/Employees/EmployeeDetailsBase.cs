@@ -13,11 +13,29 @@ namespace EmployeesManagementSystem.Pages
     public class EmployeeDetailsBase : ComponentBase
     {
         public Employee Employee { get; set; } = new Employee();
-        protected string Coordinates { get; set; }
+        [Parameter]
+        public EventCallback<int> OnEmployeeDeleted { get; set; }
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
         [Inject]
         public ApplicationDbContext Db { get; set; }
         [Parameter]
         public int Id { get; set; }
+        protected External.Components.ConfirmBase DeleteConfirmation { get; set; }
+        protected void Delete_Click()
+        {
+            DeleteConfirmation.Show();
+        }
+
+        protected async Task ConfirmDelete_Click(bool deleteConfirmed)
+        {
+            if (deleteConfirmed)
+            {
+                Db.Employees.Remove(Employee);
+                await Db.SaveChangesAsync();
+                await OnEmployeeDeleted.InvokeAsync(Employee.EmployeeId);
+            }
+        }
 
         protected override void OnInitialized()
         {
