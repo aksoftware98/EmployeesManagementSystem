@@ -9,9 +9,9 @@ namespace EmployeesManagementSystem.Models
 {
    public class Employee : IdentityUser
     {
-        [Required(ErrorMessage ="Proszę podać imię")]
+        [Required(ErrorMessage = "Please provide first name")]
         public string FirstName { get; set; }
-        [Required(ErrorMessage = "Proszę podać nazwisko")]
+        [Required(ErrorMessage = "Please provide surname")]
         [MinLength(2)]
         public string LastName { get; set; }
       
