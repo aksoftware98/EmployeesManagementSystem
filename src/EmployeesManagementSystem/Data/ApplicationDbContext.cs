@@ -15,6 +15,7 @@ namespace EmployeesManagementSystem.Data
         }
 
         public DbSet<Department> Departments { get; set; }
+        public DbSet<PhotoPath> SaveImg { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

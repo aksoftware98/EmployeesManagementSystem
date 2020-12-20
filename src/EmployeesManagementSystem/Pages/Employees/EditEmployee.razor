@@ -98,11 +98,11 @@
             <InputText @bind-Value="EditEmployeeModel.ConfirmPassword" class="form-control" />
         </div>
     </div>
-    <button class="btn btn-primary" type="submit">Zapisz</button>
+    <button class="btn btn-primary" type="submit">Save</button>
 
     @if (EditEmployeeModel.EmployeeId > 0)
     {
-<button class="btn btn-danger" type="button" @onclick="Delete_Click">Usuń</button>}
+<button class="btn btn-danger" type="button" @onclick="Delete_Click">Delete</button>}
 </EditForm>
 <Confirm @ref="DeleteConfirmation" ConfirmationChanged="ConfirmDelete_Click"
-         ConfirmationMessage=@($"Czy na pewno chcesz usunąć pracownika \"{EditEmployeeModel.LastName}, {EditEmployeeModel.FirstName}\"?")></Confirm>
+         ConfirmationMessage=@($"Do you really want to remove \"{EditEmployeeModel.LastName}, {EditEmployeeModel.FirstName}\"?")></Confirm>

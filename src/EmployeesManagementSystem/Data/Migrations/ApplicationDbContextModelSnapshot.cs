@@ -144,6 +144,24 @@ namespace EmployeesManagementSystem.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("EmployeesManagementSystem.Models.PhotoPath", b =>
+                {
+                    b.Property<int>("ImgId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<byte[]>("Img")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("ImgName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ImgId");
+
+                    b.ToTable("SaveImg");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
